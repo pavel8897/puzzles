@@ -1,0 +1,131 @@
+2048
+
+- создать массив
+- получить массив с пустыми клетками
+- получить случайную клетку среди пустых ячеек
+
+- добавить цифру в свободную ячейку
+
+- сделать вывод
+
+- при срабатывани события оставить только те, где есть цифры (массив меняется с помощью filter)
+- если есть цифра рядом, то первая суммируется
+- после слияния ячеек в одну, удаляем все возможные пустые ячейки, которые могли появиться в результате слияния
+- остальные заполняются нулями
+
+
+Redux
+
+Функция вызывет Диспатч
+          |
+          v
+Диспатч (в него передается action - объект)
+          |
+          v
+Редюсер (принимает стэйт и action)
+	      |
+          v
+Редюсер возвращает новый объект состояние
+          |
+          v
+Редюсер передается в стор
+
+_________________________________________
+
+--- index.js
+
+
+- npm i redux react-redux
+
+- создаём store - объект с методами
+	const store = createStore()
+
+- создаём reducer - функция (принимает состояние и action)
+	const reducer = (state, action) => {}
+
+- установим состояние
+	const defaultState = {
+		cash: 0
+	}
+
+- добавим в Reducer конструкцию "case"
+	case "ADD_CASE:
+		return {...state, cash: state.cash + action.payload}
+	case "DELETE_CASE"
+		return {...state, cash: state.cash - action.payload}
+
+- передать наш reducer в createStore
+	const store = createStore(reducer)
+
+- обернуть APP в Provider и передать наш store
+	<Proveider store={store}>
+		<App />
+	</Provider>
+
+
+
+--- app.js
+
+
+- создадим диспатч
+	const dispatch = useDispatch()
+
+- получим наш стейт
+	const cash = useSelector(state => state.cash)
+
+- навесим функции - события
+	onclick = {() => addCash()}
+
+- создать функции и в них пробросить dispatch
+	dispatch({type: "ADD_CASH", payload: 5})
+
+
+__________________________________________________
+
+Redux toolkit
+
+- установить toolkit
+	npm i @reduxjs/toolkit
+
+--- toolkitRedux/index.js
+
+- импорт
+	import {combineReducer, configeStore} from "@reduxjs/toolkit"
+
+- const rootReducer = combineReducer({
+	toolkit: toolkitReducer
+})
+
+- const store = configeStore({
+	reducer: rootReducer
+})
+
+
+
+--- toolkitRedux/toolkitReducer.js
+
+- импорт
+	import {createReducer} from "@reduxjs/toolkit"
+
+- создаём state
+	const initialState = {
+		count: 0,
+		todos: [1, 2, 3]
+	}
+
+- создаём action's
+	const increment = createAction(type: 'INCREMENT')
+	const decrement = createAction(type: 'DECREMENT')
+
+- экспортируем createReducer
+	export default createReducer(initialState, {
+		[increment]: function(state) {
+			state.count = state.count + 1
+		},
+		[decrement]: function(state) {
+			state.count = state.count - 1
+		}
+	})
+
+- передаём store в Provider
+

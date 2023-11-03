@@ -1,0 +1,92 @@
+Webpack
+
+- создать webpack.config.js и создать модули
+	{
+		"type" : "module"
+	}
+
+- установить webpack и webpack-cli
+
+- Начальная сборка webpack.config.js
+	export default {
+		mode: 'development',
+		entry: './src/index.js',
+	};
+
+- создать src/index.js
+- создать dist/index.html
+- создать переменную path
+	import path from 'path';
+	let test = path.resolve('dist', 'assets');
+- "scripts": {
+	"build": "webpack",
+	"dev":   "webpack --mode development",
+	"prod":  "webpack --mode production",
+	"watch": "webpack --mode development --watch"
+  },
+
+- точка входа
+entry: [
+	'./src/test1.js',
+	'./src/test2.js'
+],
+
+- точка выхода
+output: {
+	filename: 'build.js',
+}
+
+- Хеш
+	filename: '[name].[contenthash].js',
+
+- Путь к папке сборки
+	output: {
+		filename: '[name].[contenthash].js',
+        path: path.resolve('dist')
+	}
+
+- import './styles.css';
+- лоадер css
+	npm install css-loader --save-dev
+	npm install style-loader --save-dev
+
+- импорт css стилей
+	export default {
+		entry: './src/index.js',
+		module: {
+			rules: [
+				{
+					test: /\.css$/i,
+					use: ['style-loader', 'css-loader'],
+				},
+			],
+		},
+	};
+
+- css бандл
+	npm install mini-css-extract-plugin --save-dev
+
+	import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+
+	export default {
+		entry: './src/index.js',
+		plugins: [new MiniCssExtractPlugin()],
+	};
+
+	rules: [
+		{
+			test: /\.css$/i,
+			use: [MiniCssExtractPlugin.loader, 'css-loader'],
+		},
+	],
+
+- html-webpack-plugin
+	npm install html-webpack-plugin --save-dev
+
+	import HtmlWebpackPlugin from 'html-webpack-plugin';
+
+	plugins: [
+		new HtmlWebpackPlugin(),
+	],
+
+- 
