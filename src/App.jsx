@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import './style.css';
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-// import Imgs from './Imgs.jsx';
-// import Puzzles from './Puzzles.jsx';
 import Puzzle from "./Puzzle.jsx";
 
 function App() {
@@ -12,6 +10,11 @@ function App() {
         setSelectedValue(e.target.value);
     }
 
+    const links = [];
+    for (let i = 1; i <= 3; i++) {
+        links.push(<li key={i}><Link to={`/puzzle/${i}/${selectedValue}`}><img src={`/img/img${i}.jpg`} /></Link></li>);
+    }
+    
     return (
         <div className='container'>
             <BrowserRouter>
@@ -24,9 +27,7 @@ function App() {
                     </select>
                     <div className="pics">
                         <ul className="pics">
-                            <li><Link to={`/puzzle/1/${selectedValue}`}><img src="/img/img1.jpg" /></Link></li>
-                            <li><Link to={`/puzzle/2/${selectedValue}`}><img src="/img/img2.jpg" /></Link></li>
-                            <li><Link to={`/puzzle/3/${selectedValue}`}><img src="/img/img3.jpg" /></Link></li>
+                            {links}
                         </ul>                    
                     </div>
                 </div>

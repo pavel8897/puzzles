@@ -5,7 +5,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 
 export default {
-	mode: 'development',
+	mode: 'production',
 	entry: './src/index.js',
     output: {
 		filename: '[name].[contenthash].js',
